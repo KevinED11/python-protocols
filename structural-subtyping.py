@@ -58,7 +58,5 @@ class Drawables(NamedTuple):
 
 
 if __name__ == "__main__":
-    tupl = (2,)
-    print(hash(Drawables()) == hash(tupl))
     drawables: tuple[Drawable, ...] = factory(drawables=Drawables())
     main(drawables=drawables)
