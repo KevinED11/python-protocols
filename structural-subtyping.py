@@ -1,6 +1,10 @@
 from typing import Protocol, Iterable, NamedTuple
 
 
+type DrawableType = "circle" | "square" | "triangle" | "rectangle"
+type DrawableIterable = Iterable[Drawable]
+
+
 class Drawable(Protocol):
     def draw(self) -> None:
         ...
@@ -26,7 +30,7 @@ class Rectangle:
         print("Drawing a rectangle")
 
 
-def drawable_factory(drawable: str) -> Drawable:
+def drawable_factory(drawable: DrawableType) -> Drawable:
     factories = {
         "circle": Circle,
         "square": Square,
@@ -41,12 +45,12 @@ def factory(drawables: Iterable[str]) -> tuple[Drawable, ...]:
     return tuple(drawable_factory(drawable=drawable) for drawable in drawables)
 
 
-def draw_objects(objects: Iterable[Drawable]) -> None:
+def draw_objects(objects: DrawableIterable) -> None:
     for obj in objects:
         obj.draw()
 
 
-def main(drawables: Iterable[Drawable]) -> None:
+def main(drawables: DrawableIterable) -> None:
     draw_objects(objects=drawables)
 
 
