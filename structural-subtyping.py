@@ -3,6 +3,8 @@ from typing import Protocol, Iterable, NamedTuple
 
 type DrawableType = "circle" | "square" | "triangle" | "rectangle"
 type DrawableIterable = Iterable[Drawable]
+type DrawableTypeIterable = Iterable[DrawableType]
+type DrawableTuple = tuple[Drawable, ...]
 
 
 class Drawable(Protocol):
@@ -41,7 +43,7 @@ def drawable_factory(drawable: DrawableType) -> Drawable:
     return factories[drawable]()
 
 
-def factory(drawables: Iterable[str]) -> tuple[Drawable, ...]:
+def factory(drawables: DrawableTypeIterable) -> DrawableTuple:
     return tuple(drawable_factory(drawable=drawable) for drawable in drawables)
 
 
@@ -62,5 +64,5 @@ class Drawables(NamedTuple):
 
 
 if __name__ == "__main__":
-    drawables: tuple[Drawable, ...] = factory(drawables=Drawables())
+    drawables: DrawableTuple = factory(drawables=Drawables())
     main(drawables=drawables)
